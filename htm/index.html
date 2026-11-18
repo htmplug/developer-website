@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مطور الواب والمحمول | الجدول والمحادثات</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="top">
+      <h1>مطور الواب والمحمول</h1>
+      <p class="meta">INT 2201 · السداسي الأول · دورة أكتوبر 2026</p>
+      <span class="by">by htm plug</span>
+    </header>
+
+    <!-- الرئيسية -->
+    <section id="home" class="view">
+      <div class="panel now" aria-live="polite">
+        <div class="next">
+          <span class="label">الحصة القادمة</span>
+          <strong id="nextSubject">...</strong>
+          <span id="nextWhen"></span>
+        </div>
+        <div class="today">
+          <span class="label" id="todayTitle">حصص اليوم</span>
+          <ul id="todayList"></ul>
+        </div>
+      </div>
+
+      <nav class="tiles" aria-label="الأقسام">
+        <a class="tile" href="#schedule"><i data-i="table"></i><b>الجدول الأسبوعي</b><span>كل الحصص من الأحد إلى الخميس</span><em data-i="arrow"></em></a>
+        <a class="tile" href="#lessons"><i data-i="code"></i><b>الدروس</b><span>دروس ومراجع المواد في مكان واحد</span><em data-i="arrow"></em></a>
+        <a class="tile" href="#chats"><i data-i="chat"></i><b>محادثات القسم</b><span>مجموعات الدفعة للإعلانات والنقاش</span><em data-i="arrow"></em></a>
+        <a class="tile" href="#subjects"><i data-i="book"></i><b>المواد والأساتذة</b><span>من يدرّس كل مادة ومتى</span><em data-i="arrow"></em></a>
+      </nav>
+    </section>
+
+    <!-- الجدول -->
+    <section id="schedule" class="view">
+      <div class="panel">
+        <div class="bar">
+          <h2>الجدول الأسبوعي</h2>
+          <button class="ghost" id="printBtn"><i data-i="print"></i>طباعة الجدول</button>
+        </div>
+        <div class="table-wrap"><table id="timetable"></table></div>
+      </div>
+    </section>
+
+    <!-- الدروس -->
+    <section id="lessons" class="view">
+      <div class="panel">
+        <h2>الدروس</h2>
+        <p class="hint">اضغط على الدرس لفتحه، وزر "العودة للموقع" في أعلاه يرجعك إلى هنا.</p>
+        <div class="chat-grid" id="lessonGrid"></div>
+      </div>
+    </section>
+
+    <!-- المحادثات -->
+    <section id="chats" class="view">
+      <div class="panel">
+        <h2>محادثات القسم</h2>
+        <p class="hint">اضغط على المجموعة للانضمام. المحادثة تفتح داخل التطبيق نفسه (واتساب أو تيليغرام...).</p>
+        <div class="chat-grid" id="chatGrid"></div>
+      </div>
+    </section>
+
+    <!-- المواد -->
+    <section id="subjects" class="view">
+      <div class="panel">
+        <h2>المواد والأساتذة</h2>
+        <ul class="subject-list" id="subjectList"></ul>
+      </div>
+    </section>
+
+    <footer>
+      <p class="credit">صُنع بواسطة <strong>htm plug</strong></p>
+      المعهد الوطني المتخصص في التكوين المهني · الجدول معتمد من مصلحة التنظيم ومتابعة التكوين الحضوري
+    </footer>
+  </main>
+
+  <nav class="dock" aria-label="التنقل">
+    <a href="#home"><i data-i="home"></i><span>الرئيسية</span></a>
+    <a href="#schedule"><i data-i="table"></i><span>الجدول</span></a>
+    <a href="#lessons"><i data-i="code"></i><span>الدروس</span></a>
+    <a href="#chats"><i data-i="chat"></i><span>المحادثات</span></a>
+    <a href="#subjects"><i data-i="book"></i><span>المواد</span></a>
+  </nav>
+  <script src="script.js"></script>
+</body>
+</html>

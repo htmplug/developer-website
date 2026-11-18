@@ -1,0 +1,2543 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة CSS3 التعليمية التفاعلية والمحاكي الحي</title>
+    <!-- خطوط عربية وبرمجية عالية الوضوح مع بدائل محلية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-app: #f1f5f9;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f8fafc;
+            --bg-code: #0f172a;
+            --text-code: #e2e8f0;
+            --primary: #1e3a8a;
+            --primary-hover: #172554;
+            --primary-soft: #eff6ff;
+            --accent: #0284c7;
+            --accent-soft: #e0f2fe;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: #cbd5e1;
+            --border-light: #e2e8f0;
+            --prop-color: #be123c;
+            --prop-bg: #fff1f2;
+            --example-color: #0369a1;
+            --tag-bg: #e0f2fe;
+            --tag-text: #0c4a6e;
+            --tag-border: #bae6fd;
+            --success: #059669;
+            --warning: #d97706;
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+            --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.08);
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        body.dark-mode {
+            --bg-app: #0b1120;
+            --bg-surface: #111827;
+            --bg-subtle: #1e293b;
+            --bg-code: #020617;
+            --text-code: #f8fafc;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --primary-soft: #172554;
+            --accent: #38bdf8;
+            --accent-soft: #0c4a6e;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --border-light: #1e293b;
+            --prop-color: #fb7185;
+            --prop-bg: #3f121d;
+            --example-color: #38bdf8;
+            --tag-bg: #0c4a6e;
+            --tag-text: #bae6fd;
+            --tag-border: #0369a1;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* ================= شريط التنقل العلوي ================= */
+        .top-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-surface);
+            border-bottom: 2px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+            padding: 10px 20px;
+        }
+
+        .navbar-inner {
+            max-width: 1560px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1e3a8a, #0284c7);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 15px;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(2, 132, 199, 0.3);
+        }
+
+        .brand-title h1 {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.25;
+        }
+
+        .brand-title span {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .mode-switcher {
+            display: flex;
+            align-items: center;
+            background: var(--bg-subtle);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mode-btn:hover {
+            color: var(--text-main);
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: var(--bg-subtle);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .icon-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .print-btn {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .print-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        /* ================= تخطيط المنصة الرئيسي ================= */
+        .workspace {
+            max-width: 1560px;
+            margin: 18px auto;
+            padding: 0 16px 40px;
+            display: grid;
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* الوضع المزدوج: المحاكي + المرجع */
+        .workspace.mode-split {
+            grid-template-columns: 490px minmax(0, 1fr);
+        }
+
+        /* وضع المرجع فقط */
+        .workspace.mode-reference {
+            grid-template-columns: 1fr;
+            max-width: 1200px;
+        }
+        .workspace.mode-reference .simulator-panel {
+            display: none;
+        }
+
+        /* وضع المحاكي الموسع */
+        .workspace.mode-simulator {
+            grid-template-columns: 1fr;
+            max-width: 1240px;
+        }
+        .workspace.mode-simulator .reference-panel {
+            display: none;
+        }
+
+        @media (max-width: 1120px) {
+            .workspace.mode-split {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ================= لوحة المحاكي التفاعلي الحي ================= */
+        .simulator-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .workspace.mode-split .simulator-panel {
+            position: sticky;
+            top: 74px;
+            max-height: calc(100vh - 90px);
+            overflow-y: auto;
+        }
+
+        @media (max-width: 1120px) {
+            .workspace.mode-split .simulator-panel {
+                position: static;
+                max-height: none;
+            }
+        }
+
+        .sim-header {
+            background: linear-gradient(135deg, #1e3a8a, #0369a1);
+            color: #ffffff;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .sim-header-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .live-dot {
+            width: 9px;
+            height: 9px;
+            background: #4ade80;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #4ade80;
+            animation: pulseDot 1.6s infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        .active-prop-badge {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 3px 10px;
+            border-radius: 20px;
+            direction: ltr;
+            unicode-bidi: isolate;
+        }
+
+        /* تبويبات القوالب الستة */
+        .stage-tabs-wrap {
+            background: var(--bg-subtle);
+            border-bottom: 1px solid var(--border);
+            padding: 8px 10px;
+        }
+
+        .stage-tabs-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stage-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        @media (max-width: 480px) {
+            .stage-tabs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .stage-tab {
+            border: 1px solid var(--border);
+            background: var(--bg-surface);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 6px 6px;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.18s;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .stage-tab:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .stage-tab.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        /* مسرح المعاينة الحية */
+        .preview-stage-wrapper {
+            padding: 14px;
+            background-color: var(--bg-subtle);
+            background-image: radial-gradient(var(--border) 1px, transparent 1px);
+            background-size: 14px 14px;
+            border-bottom: 1px solid var(--border);
+            min-height: 230px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workspace.mode-simulator .preview-stage-wrapper {
+            min-height: 310px;
+        }
+
+        .stage-target-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 10px;
+            background: var(--bg-surface);
+            padding: 5px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            font-size: 11.5px;
+        }
+
+        .target-selector-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .target-pill {
+            border: 1px solid var(--border);
+            background: var(--bg-subtle);
+            color: var(--text-muted);
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            direction: ltr;
+        }
+
+        .target-pill.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* قواعد الحركة الجاهزة للمحاكي */
+        @keyframes pulseBounce {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.06) translateY(-8px); }
+        }
+        @keyframes slideUp {
+            0% { opacity: 0.2; transform: translateY(22px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0.15; }
+            100% { opacity: 1; }
+        }
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes colorShift {
+            0% { background-color: #dbeafe; border-color: #2563eb; }
+            50% { background-color: #fce7f3; border-color: #db2777; }
+            100% { background-color: #dcfce7; border-color: #059669; }
+        }
+
+        /* تنسيقات القوالب الستة الأساسية داخل المسرح */
+        /* 1. بطاقة وعناصر نصية */
+        .tpl-card {
+            background: #ffffff;
+            color: #0f172a;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .tpl-card h1 {
+            font-size: 19px;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+        }
+        .tpl-card p {
+            font-size: 13.5px;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        .tpl-card .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tpl-card .badge-span {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 2px 9px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .tpl-card a {
+            color: #0284c7;
+            font-size: 13px;
+            font-weight: 700;
+        }
+        .tpl-card button {
+            background: #1e3a8a;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 7px;
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* 2. صندوق مرن Flexbox */
+        .tpl-flex-container {
+            display: flex;
+            gap: 10px;
+            background: #ffffff;
+            border: 2px dashed #94a3b8;
+            border-radius: 10px;
+            padding: 12px;
+            min-height: 155px;
+            width: 100%;
+        }
+        .tpl-flex-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 58px;
+            min-height: 48px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+        }
+        .tpl-flex-item:nth-child(1) { background: #2563eb; }
+        .tpl-flex-item:nth-child(2) { background: #e11d48; border: 2px solid #ffe4e6; }
+        .tpl-flex-item:nth-child(3) { background: #059669; }
+        .tpl-flex-item:nth-child(4) { background: #d97706; }
+
+        /* 3. شبكة CSS Grid */
+        .tpl-grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background: #ffffff;
+            border: 2px dashed #94a3b8;
+            border-radius: 10px;
+            padding: 10px;
+            min-height: 165px;
+            width: 100%;
+        }
+        .tpl-grid-box {
+            border-radius: 7px;
+            padding: 10px 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .g-header { background: #1e3a8a; }
+        .g-sidebar { background: #0284c7; }
+        .g-main { background: #0d9488; }
+        .g-card1 { background: #7c3aed; }
+        .g-card2 { background: #db2777; }
+        .g-footer { background: #475569; }
+
+        /* 4. قائمة وجدول List & Table */
+        .tpl-list-table-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 10px;
+            background: #ffffff;
+            color: #0f172a;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            width: 100%;
+        }
+        @media (max-width: 480px) {
+            .tpl-list-table-wrap { grid-template-columns: 1fr; }
+        }
+        .tpl-list-box ul, .tpl-list-box ol {
+            padding-right: 22px;
+            font-size: 12.5px;
+            margin-bottom: 6px;
+        }
+        .tpl-table {
+            width: 100%;
+            border: 1px solid #94a3b8;
+            font-size: 12px;
+            background: #f8fafc;
+        }
+        .tpl-table caption {
+            font-weight: 700;
+            color: #1e3a8a;
+            padding: 4px;
+            font-size: 12px;
+        }
+        .tpl-table th, .tpl-table td {
+            border: 1px solid #94a3b8;
+            padding: 5px 7px;
+            text-align: right;
+            background: #ffffff;
+        }
+        .tpl-table th {
+            background: #e2e8f0;
+        }
+        .tpl-table td.empty-demo-cell {
+            background: #fef3c7;
+        }
+
+        /* 5. صورة وفلاتر Media & Filters */
+        .tpl-media-stage {
+            position: relative;
+            width: 100%;
+            height: 175px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #cbd5e1;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tpl-media-artwork {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .tpl-media-overlay {
+            position: absolute;
+            inset: 22px 35px;
+            background: rgba(255, 255, 255, 0.28);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 12.5px;
+            font-weight: 700;
+        }
+
+        /* 6. تموضع وطبقات Position & Z-Index */
+        .tpl-position-arena {
+            position: relative;
+            width: 100%;
+            height: 175px;
+            background: #ffffff;
+            border: 2px solid #94a3b8;
+            border-radius: 10px;
+            padding: 12px;
+            overflow: hidden;
+            color: #0f172a;
+        }
+        .pos-ref-text {
+            font-size: 12px;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .pos-sibling-box {
+            position: absolute;
+            top: 48px;
+            right: 52px;
+            width: 105px;
+            height: 68px;
+            background: #e2e8f0;
+            border: 2px solid #64748b;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #334155;
+            z-index: 2;
+        }
+        .pos-target-badge {
+            background: linear-gradient(135deg, #e11d48, #be123c);
+            color: #ffffff;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.35);
+            display: inline-block;
+            z-index: 1;
+        }
+
+        /* ================= شريط التحكم التفاعلي ================= */
+        .controls-panel {
+            padding: 12px 14px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .control-row-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .prop-info-chip {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* مفتاح التبديل: تجربة منفردة مقابل تراكم السمات */
+        .builder-toggle {
+            display: inline-flex;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            padding: 2px;
+        }
+
+        .builder-toggle button {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 4px 9px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .builder-toggle button.active {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        /* أزرار القيم الجاهزة */
+        .presets-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .preset-pill {
+            font-family: 'Fira Code', monospace;
+            font-size: 11.5px;
+            background: var(--bg-subtle);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 4px 9px;
+            border-radius: 6px;
+            cursor: pointer;
+            direction: ltr;
+            unicode-bidi: isolate;
+            transition: all 0.15s;
+        }
+
+        .preset-pill:hover {
+            border-color: var(--primary);
+            background: var(--primary-soft);
+        }
+
+        .preset-pill.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* شريط التمرير الرقمي ومنتقي الألوان */
+        .dynamic-widgets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .widget-box {
+            flex: 1;
+            min-width: 210px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 7px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .widget-box label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .widget-box input[type="range"] {
+            flex: 1;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .slider-readout {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 5px;
+            direction: ltr;
+            min-width: 58px;
+            text-align: center;
+        }
+
+        .unit-pills {
+            display: inline-flex;
+            gap: 3px;
+        }
+
+        .unit-btn {
+            font-family: 'Fira Code', monospace;
+            font-size: 10.5px;
+            border: 1px solid var(--border);
+            background: var(--bg-surface);
+            color: var(--text-muted);
+            padding: 2px 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .unit-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .color-picker-input {
+            width: 34px;
+            height: 28px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1px;
+            background: var(--bg-surface);
+            cursor: pointer;
+        }
+
+        .color-swatches {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .swatch-btn {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 0 1px var(--border);
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+
+        .swatch-btn:hover {
+            transform: scale(1.18);
+        }
+
+        /* شرائح السمات المتراكمة */
+        .accumulated-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
+            background: var(--primary-soft);
+            border: 1px dashed var(--primary);
+            padding: 6px 8px;
+            border-radius: 7px;
+        }
+
+        .accumulated-bar-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-left: 4px;
+        }
+
+        .rule-chip {
+            font-family: 'Fira Code', monospace;
+            font-size: 11px;
+            background: var(--bg-surface);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            direction: ltr;
+        }
+
+        .rule-chip button {
+            border: none;
+            background: none;
+            color: #e11d48;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 1;
+        }
+
+        /* ================= محرر CSS المباشر وعارض HTML ================= */
+        .editors-panel {
+            padding: 12px 14px;
+            background: var(--bg-surface);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .workspace.mode-simulator .editors-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .workspace.mode-simulator .editors-panel {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .editor-box {
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            overflow: hidden;
+            background: var(--bg-code);
+        }
+
+        .editor-toolbar {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .editor-lang-badge {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            color: #38bdf8;
+            direction: ltr;
+        }
+
+        .editor-btns {
+            display: flex;
+            gap: 6px;
+        }
+
+        .code-action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f8fafc;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 3px 9px;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .code-action-btn:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .css-textarea {
+            width: 100%;
+            min-height: 105px;
+            background: var(--bg-code);
+            color: #7dd3fc;
+            border: none;
+            padding: 10px 12px;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 12.5px;
+            line-height: 1.55;
+            direction: ltr;
+            text-align: left;
+            resize: vertical;
+            outline: none;
+        }
+
+        .html-viewer-pre {
+            margin: 0;
+            padding: 10px 12px;
+            background: var(--bg-code);
+            color: #cbd5e1;
+            font-family: 'Fira Code', Consolas, monospace;
+            font-size: 11.5px;
+            line-height: 1.5;
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+            max-height: 140px;
+        }
+
+        /* ================= لوحة المرجع الشامل (10 مجموعات) ================= */
+        .reference-panel {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: 20px;
+        }
+
+        .ref-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .search-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrap {
+            position: relative;
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 38px 10px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 9px;
+            background: var(--bg-subtle);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            background: var(--bg-surface);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        .stats-badge {
+            background: var(--primary-soft);
+            color: var(--primary);
+            border: 1px solid var(--border);
+            padding: 8px 14px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* أزرار تصفية المجموعات */
+        .category-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .cat-filter-btn {
+            border: 1px solid var(--border);
+            background: var(--bg-subtle);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 11px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.18s;
+        }
+
+        .cat-filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .cat-filter-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        /* شريط تنبيه تصفية الوسوم */
+        .active-tag-banner {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .active-tag-banner.visible {
+            display: flex;
+        }
+
+        /* بطاقة كل مجموعة */
+        .category-section {
+            margin-bottom: 28px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .category-header {
+            background: linear-gradient(to left, #1e3a8a, #1d4ed8);
+            color: #ffffff;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .category-header h2 {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .category-header-en {
+            font-family: 'Fira Code', monospace;
+            font-size: 12.5px;
+            opacity: 0.92;
+            direction: ltr;
+            unicode-bidi: isolate;
+        }
+
+        /* صندوق شرح المجموعة والوسوم */
+        .category-meta {
+            background: var(--bg-subtle);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13.5px;
+        }
+
+        .cat-desc {
+            margin-bottom: 9px;
+            color: var(--text-main);
+        }
+
+        .cat-desc strong,
+        .cat-tags-row strong {
+            color: var(--primary);
+        }
+
+        .cat-tags-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag-badge-btn {
+            font-family: 'Fira Code', monospace;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--tag-text);
+            background: var(--tag-bg);
+            border: 1px solid var(--tag-border);
+            padding: 2px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            direction: ltr;
+            unicode-bidi: isolate;
+            transition: all 0.15s;
+        }
+
+        .tag-badge-btn:hover,
+        .tag-badge-btn.selected-tag {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        /* جدول السمات */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table.ref-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        table.ref-table thead {
+            background: var(--bg-subtle);
+            border-bottom: 2px solid var(--border);
+        }
+
+        table.ref-table th {
+            padding: 9px 12px;
+            text-align: right;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: nowrap;
+        }
+
+        table.ref-table td {
+            padding: 9px 12px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: middle;
+        }
+
+        table.ref-table tbody tr:hover {
+            background-color: var(--primary-soft);
+        }
+
+        table.ref-table tbody tr.active-sim-row {
+            background-color: var(--accent-soft);
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+
+        code.prop-code {
+            font-family: 'Fira Code', monospace;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--prop-color);
+            background: var(--prop-bg);
+            padding: 3px 7px;
+            border-radius: 5px;
+            direction: ltr;
+            unicode-bidi: isolate;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
+        code.example-code {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            color: var(--example-color);
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            padding: 3px 8px;
+            border-radius: 5px;
+            direction: ltr;
+            unicode-bidi: isolate;
+            display: inline-block;
+        }
+
+        .sim-row-btn {
+            background: linear-gradient(135deg, #0284c7, #1e3a8a);
+            color: #ffffff;
+            border: none;
+            padding: 5px 11px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 2px 5px rgba(2, 132, 199, 0.25);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .sim-row-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+        }
+
+        /* إشعار عائم Toast */
+        .toast-msg {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: #0f172a;
+            color: #ffffff;
+            border-right: 4px solid #38bdf8;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            z-index: 2000;
+            opacity: 0;
+            transform: translateY(15px);
+            pointer-events: none;
+            transition: all 0.25s ease;
+        }
+
+        .toast-msg.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .print-only-header {
+            display: none;
+        }
+
+        /* ================= إعدادات الطباعة الاحترافية A4 ================= */
+        @page {
+            size: A4 portrait;
+            margin: 12mm;
+        }
+
+        @media print {
+            body, body.dark-mode {
+                background: #ffffff !important;
+                color: #0f172a !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .top-navbar,
+            .simulator-panel,
+            .ref-controls,
+            .sim-row-btn,
+            .col-action,
+            .toast-msg {
+                display: none !important;
+            }
+
+            .print-only-header {
+                display: block !important;
+                text-align: center;
+                border-bottom: 3px solid #1e3a8a;
+                padding-bottom: 10px;
+                margin-bottom: 16px;
+            }
+
+            .print-only-header h1 {
+                font-size: 20px;
+                color: #1e3a8a;
+            }
+
+            .print-only-header p {
+                font-size: 12.5px;
+                color: #475569;
+            }
+
+            .workspace {
+                display: block !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .reference-panel {
+                display: block !important;
+                border: none !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+            }
+
+            .category-section {
+                margin-bottom: 18px;
+                border: 1px solid #cbd5e1;
+                border-radius: 6px;
+            }
+
+            .category-header {
+                background: #1e3a8a !important;
+                color: #ffffff !important;
+                padding: 6px 12px;
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            .category-meta {
+                background: #f8fafc !important;
+                color: #0f172a !important;
+                padding: 7px 12px;
+                font-size: 12px;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            .tag-badge-btn {
+                background: #e0f2fe !important;
+                color: #0c4a6e !important;
+                border: 1px solid #bae6fd !important;
+                font-size: 10.5px;
+                padding: 1px 5px;
+            }
+
+            table.ref-table thead {
+                display: table-header-group;
+                background: #e2e8f0 !important;
+            }
+
+            table.ref-table tr {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            table.ref-table th,
+            table.ref-table td {
+                padding: 5px 8px;
+                font-size: 11.5px;
+                border: 1px solid #cbd5e1;
+                color: #0f172a !important;
+            }
+
+            code.prop-code {
+                background: #fff1f2 !important;
+                color: #be123c !important;
+                font-size: 11px;
+                padding: 1px 4px;
+            }
+
+            code.example-code {
+                background: #f8fafc !important;
+                color: #0369a1 !important;
+                font-size: 11px;
+                padding: 1px 4px;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+
+    <!-- شريط التنقل العلوي -->
+    <header class="top-navbar">
+        <div class="navbar-inner">
+            <div class="brand-box">
+                <div class="brand-logo">CSS3</div>
+                <div class="brand-title">
+                    <h1>منصة CSS3 التعليمية التفاعلية والمحاكي الحي</h1>
+                    <span>مرجع شامل (118 سمة) + مختبر تطبيقي فوري لتجربة وتعديل العناصر</span>
+                </div>
+            </div>
+
+            <div class="mode-switcher" role="group" aria-label="أوضاع العرض">
+                <button class="mode-btn active" data-mode="mode-split" onclick="setViewMode('mode-split', this)">الوضع المزدوج: المرجع + المحاكي</button>
+                <button class="mode-btn" data-mode="mode-reference" onclick="setViewMode('mode-reference', this)">المرجع الشامل فقط</button>
+                <button class="mode-btn" data-mode="mode-simulator" onclick="setViewMode('mode-simulator', this)">المحاكي التفاعلي موسع</button>
+            </div>
+
+            <div class="nav-actions">
+                <a class="icon-btn" href="../index.html#lessons" style="text-decoration:none">← العودة للموقع</a>
+                <button class="icon-btn" id="themeToggleBtn" onclick="toggleDarkMode()" title="تبديل المظهر الليلي/النهاري">☀️ نهاري</button>
+                <button class="print-btn" onclick="window.print()">🖨️ طباعة المرجع (A4)</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ترويسة مخصصة للطباعة فقط -->
+    <div class="print-only-header">
+        <h1>المرجع الشامل لسمات لغة CSS3</h1>
+        <p>دليل تعليمي منظم يضم شرح كل مجموعة، وسوم HTML المرتبطة بها، و 118 سمة مع الأمثلة التطبيقية</p>
+    </div>
+
+    <!-- مساحة العمل الرئيسية -->
+    <main id="workspace" class="workspace mode-split">
+
+        <!-- ================= لوحة المحاكي التفاعلي الحي ================= -->
+        <section class="simulator-panel" aria-label="المحاكي التفاعلي الحي">
+            <div class="sim-header">
+                <div class="sim-header-title">
+                    <span class="live-dot"></span>
+                    <span>المحاكي التفاعلي الحي</span>
+                </div>
+                <span class="active-prop-badge" id="activePropBadge">background-color</span>
+            </div>
+
+            <!-- تبويبات اختيار قالب العناصر -->
+            <div class="stage-tabs-wrap">
+                <div class="stage-tabs-label">
+                    <span>اختر بيئة العناصر (Stage):</span>
+                    <span id="stageHintLabel" style="color: var(--accent);">انقر على "⚡ جرّب" في أي سمة أو عدّل مباشرة</span>
+                </div>
+                <div class="stage-tabs" id="stageTabs">
+                    <button class="stage-tab active" data-stage="card" onclick="selectStage('card')">1. بطاقة وعناصر نصية</button>
+                    <button class="stage-tab" data-stage="flex" onclick="selectStage('flex')">2. صندوق مرن (Flexbox)</button>
+                    <button class="stage-tab" data-stage="grid" onclick="selectStage('grid')">3. شبكة (CSS Grid)</button>
+                    <button class="stage-tab" data-stage="listTable" onclick="selectStage('listTable')">4. قائمة وجدول (List & Table)</button>
+                    <button class="stage-tab" data-stage="media" onclick="selectStage('media')">5. صورة وفلاتر (Media)</button>
+                    <button class="stage-tab" data-stage="position" onclick="selectStage('position')">6. تموضع وطبقات (Position)</button>
+                </div>
+            </div>
+
+            <!-- مسرح المعاينة الحية -->
+            <div class="preview-stage-wrapper">
+                <div class="stage-target-bar">
+                    <span>العنصر المستهدف للتنسيق:</span>
+                    <div class="target-selector-group" id="targetSelectorGroup"></div>
+                </div>
+                <div id="liveStageCanvas"></div>
+            </div>
+
+            <!-- أدوات التحكم الديناميكية بالسمة -->
+            <div class="controls-panel">
+                <div class="control-row-header">
+                    <span class="prop-info-chip" id="controlPropDesc">تحديد لون خلفية العنصر.</span>
+                    <div class="builder-toggle" title="اختر بين تجربة سمة واحدة أو دمج عدة سمات معاً">
+                        <button id="singleModeBtn" class="active" onclick="setBuilderMode(false)">تجربة منفردة</button>
+                        <button id="cumulativeModeBtn" onclick="setBuilderMode(true)">تراكم السمات</button>
+                    </div>
+                </div>
+
+                <!-- أزرار القيم القياسية الجاهزة -->
+                <div class="presets-container" id="presetsContainer"></div>
+
+                <!-- أدوات تفاعلية: شريط التمرير الرقمي + منتقي الألوان -->
+                <div class="dynamic-widgets" id="dynamicWidgets">
+                    <div class="widget-box" id="sliderWidget" style="display: none;">
+                        <label for="propRangeSlider">القيمة:</label>
+                        <input type="range" id="propRangeSlider" min="0" max="100" step="1" value="16" oninput="onSliderChange(this.value)">
+                        <span class="slider-readout" id="sliderReadout">16px</span>
+                        <div class="unit-pills" id="unitPills"></div>
+                    </div>
+
+                    <div class="widget-box" id="colorWidget" style="display: none;">
+                        <label for="propColorPicker">اللون:</label>
+                        <input type="color" id="propColorPicker" class="color-picker-input" value="#1e3a8a" oninput="onColorChange(this.value)">
+                        <div class="color-swatches">
+                            <button class="swatch-btn" style="background:#1e3a8a" onclick="onColorChange('#1e3a8a')" title="أزرق داكن"></button>
+                            <button class="swatch-btn" style="background:#0284c7" onclick="onColorChange('#0284c7')" title="سماوي"></button>
+                            <button class="swatch-btn" style="background:#059669" onclick="onColorChange('#059669')" title="أخضر"></button>
+                            <button class="swatch-btn" style="background:#e11d48" onclick="onColorChange('#e11d48')" title="وردي قرمزي"></button>
+                            <button class="swatch-btn" style="background:#d97706" onclick="onColorChange('#d97706')" title="برتقالي"></button>
+                            <button class="swatch-btn" style="background:#fef3c7" onclick="onColorChange('#fef3c7')" title="أصفر ناعم"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- شريط السمات المتراكمة (يظهر في وضع تراكم السمات) -->
+                <div class="accumulated-bar" id="accumulatedBar" style="display: none;">
+                    <span class="accumulated-bar-title">السمات المطبقة:</span>
+                    <div id="accumulatedChips" style="display:flex; flex-wrap:wrap; gap:5px;"></div>
+                </div>
+            </div>
+
+            <!-- محرر CSS المباشر وعارض كود HTML -->
+            <div class="editors-panel">
+                <div class="editor-box">
+                    <div class="editor-toolbar">
+                        <span class="editor-lang-badge">CSS Live Editor</span>
+                        <div class="editor-btns">
+                            <button class="code-action-btn" onclick="copyCssCode()">📋 نسخ الكود</button>
+                            <button class="code-action-btn" onclick="resetSimulator()">↺ إعادة ضبط</button>
+                        </div>
+                    </div>
+                    <textarea id="cssCodeEditor" class="css-textarea" spellcheck="false" oninput="onManualCssEdit()"></textarea>
+                </div>
+
+                <div class="editor-box">
+                    <div class="editor-toolbar">
+                        <span class="editor-lang-badge">HTML Stage Structure</span>
+                        <div class="editor-btns">
+                            <button class="code-action-btn" id="toggleHtmlBtn" onclick="toggleHtmlViewer()">👁️ إظهار HTML</button>
+                        </div>
+                    </div>
+                    <pre id="htmlSourceViewer" class="html-viewer-pre" style="display: none;"></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= لوحة المرجع الشامل ================= -->
+        <section class="reference-panel" aria-label="المرجع الشامل لسمات CSS3">
+            <div class="ref-controls">
+                <div class="search-row">
+                    <div class="search-input-wrap">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchInput" class="search-input" placeholder="ابحث باسم السمة (مثل: flex-grow, grid, filter)، الشرح، أو وسم HTML..." oninput="applyFilters()">
+                    </div>
+                    <div class="stats-badge" id="resultsCountBadge">يعرض 118 سمة في 10 مجموعات</div>
+                </div>
+
+                <!-- أزرار تصفية المجموعات العشر -->
+                <div class="category-pills" id="categoryPills"></div>
+
+                <!-- تنبيه تصفية حسب وسم HTML -->
+                <div class="active-tag-banner" id="activeTagBanner">
+                    <span>تصفية حسب وسم HTML: <code class="prop-code" id="activeTagLabel"></code></span>
+                    <button class="cat-filter-btn active" onclick="clearTagFilter()">✕ إلغاء تصفية الوسم</button>
+                </div>
+            </div>
+
+            <div id="categoriesContainer"></div>
+        </section>
+    </main>
+
+    <!-- إشعار عائم -->
+    <div id="toastMsg" class="toast-msg"></div>
+
+    <!-- عنصر style ديناميكي لتطبيق قواعد CSS الحية على عناصر المسرح -->
+    <style id="dynamicStageStyle"></style>
+
+    <script>
+        /* =========================================================================
+           1. تعريف القوالب الستة والعناصر المستهدفة داخل المحاكي
+           ========================================================================= */
+        const STAGE_TEMPLATES = {
+            card: {
+                name: "بطاقة وعناصر نصية",
+                targets: [
+                    { id: "card", label: ".card (البطاقة)", selector: "#sim-stage .tpl-card" },
+                    { id: "title", label: "h1 (العنوان)", selector: "#sim-stage .tpl-card h1" },
+                    { id: "text", label: "p (الفقرة)", selector: "#sim-stage .tpl-card p" },
+                    { id: "btn", label: "button (الزر)", selector: "#sim-stage .tpl-card button" }
+                ],
+                html: `<div class="tpl-card">
+  <h1>عنوان البطاقة التفاعلية</h1>
+  <p>هذا نص تجريبي لاختبار خصائص الخطوط والألوان والحدود والظلال والتباعد بشكل مباشر.</p>
+  <div class="card-meta">
+    <span class="badge-span">وسم span</span>
+    <a href="#demo" onclick="return false;">رابط تشعبي a</a>
+    <button type="button">زر تفاعلي button</button>
+  </div>
+</div>`
+            },
+            flex: {
+                name: "صندوق مرن (Flexbox)",
+                targets: [
+                    { id: "container", label: ".flex-container (الأب)", selector: "#sim-stage .tpl-flex-container" },
+                    { id: "item2", label: ".item-2 (العنصر 2)", selector: "#sim-stage .tpl-flex-item:nth-child(2)" }
+                ],
+                html: `<div class="tpl-flex-container">
+  <div class="tpl-flex-item">1</div>
+  <div class="tpl-flex-item">2 (مستهدف)</div>
+  <div class="tpl-flex-item">3</div>
+  <div class="tpl-flex-item">4</div>
+</div>`
+            },
+            grid: {
+                name: "شبكة (CSS Grid)",
+                targets: [
+                    { id: "container", label: ".grid-container (الشبكة)", selector: "#sim-stage .tpl-grid-container" },
+                    { id: "cell1", label: ".grid-item-1 (الخلية 1)", selector: "#sim-stage .g-header" }
+                ],
+                html: `<div class="tpl-grid-container">
+  <div class="tpl-grid-box g-header">1. Header</div>
+  <div class="tpl-grid-box g-sidebar">2. Sidebar</div>
+  <div class="tpl-grid-box g-main">3. Main</div>
+  <div class="tpl-grid-box g-card1">4. Card A</div>
+  <div class="tpl-grid-box g-card2">5. Card B</div>
+  <div class="tpl-grid-box g-footer">6. Footer</div>
+</div>`
+            },
+            listTable: {
+                name: "قائمة وجدول (List & Table)",
+                targets: [
+                    { id: "table", label: "table (الجدول)", selector: "#sim-stage .tpl-table" },
+                    { id: "list", label: "ul (القائمة)", selector: "#sim-stage .tpl-list-box ul" }
+                ],
+                html: `<div class="tpl-list-table-wrap">
+  <div class="tpl-list-box">
+    <ul>
+      <li>العنصر الأول في القائمة</li>
+      <li>العنصر الثاني في القائمة</li>
+      <li>العنصر الثالث في القائمة</li>
+    </ul>
+  </div>
+  <table class="tpl-table">
+    <caption>جدول الدورات التدريبية</caption>
+    <thead>
+      <tr><th>الدورة</th><th>المستوى</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>أساسيات CSS3</td><td>مبتدئ</td></tr>
+      <tr><td>تخطيط Grid</td><td class="empty-demo-cell"></td></tr>
+    </tbody>
+  </table>
+</div>`
+            },
+            media: {
+                name: "صورة وفلاتر (Media)",
+                targets: [
+                    { id: "artwork", label: ".media-artwork (الصورة)", selector: "#sim-stage .tpl-media-artwork" },
+                    { id: "overlay", label: ".glass-overlay (الطبقة)", selector: "#sim-stage .tpl-media-overlay" },
+                    { id: "frame", label: ".media-stage (الإطار)", selector: "#sim-stage .tpl-media-stage" }
+                ],
+                html: `<div class="tpl-media-stage">
+  <svg class="tpl-media-artwork" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="skyGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#1e3a8a"/>
+        <stop offset="50%" stop-color="#0284c7"/>
+        <stop offset="100%" stop-color="#f59e0b"/>
+      </linearGradient>
+    </defs>
+    <rect width="400" height="200" fill="url(#skyGrad)"/>
+    <circle cx="310" cy="55" r="32" fill="#fde047" opacity="0.9"/>
+    <polygon points="0,200 110,85 230,200" fill="#0f172a" opacity="0.75"/>
+    <polygon points="140,200 265,70 400,200" fill="#1e293b" opacity="0.85"/>
+  </svg>
+  <div class="tpl-media-overlay">
+    <span>بطاقة زجاجية فوق المشهد البصري</span>
+    <small>جرّب filter أو backdrop-filter أو clip-path</small>
+  </div>
+</div>`
+            },
+            position: {
+                name: "تموضع وطبقات (Position)",
+                targets: [
+                    { id: "badge", label: ".target-badge (العنصر)", selector: "#sim-stage .pos-target-badge" },
+                    { id: "arena", label: ".arena (الحاوية الأب)", selector: "#sim-stage .tpl-position-arena" }
+                ],
+                html: `<div class="tpl-position-arena">
+  <p class="pos-ref-text">حاوية مرجعية (position: relative) لاختبار التموضع والإزاحة وطبقات التراكب:</p>
+  <div class="pos-sibling-box">طبقة مجاورة<br>(z-index: 2)</div>
+  <div class="pos-target-badge">العنصر المستهدف</div>
+</div>`
+            }
+        };
+
+        /* =========================================================================
+           2. قاعدة البيانات الشاملة (10 مجموعات - 118 سمة مع إعدادات المحاكاة)
+           ========================================================================= */
+        const CSS_DATABASE = [
+            {
+                id: "cat1",
+                title: "1. النصوص والخطوط",
+                en: "Typography & Fonts",
+                desc: "تتحكم هذه المجموعة في المظهر البصري للنصوص داخل الصفحة، بدءًا من نوع الخط وحجمه وسُمكه ولونه، وصولًا إلى محاذاة الفقرات، المسافات بين الأحرف والكلمات والأسطر، واتجاه الكتابة والتفاف النصوص الطويلة.",
+                tags: ["<p>", "<h1> - <h6>", "<span>", "<a>", "<strong>", "<em>", "<label>", "<li>", "<td>"],
+                items: [
+                    { prop: "color", desc: "تحديد لون النص داخل العنصر.", example: "color: #1e3a8a;", stage: "card", target: "text", presets: ["#1e3a8a", "#e11d48", "#059669", "#d97706", "#7c3aed"], color: true },
+                    { prop: "font-family", desc: "تحديد نوع الخط أو قائمة الخطوط البديلة للنص.", example: "font-family: 'Cairo', sans-serif;", stage: "card", target: "text", presets: ["'Cairo', sans-serif", "'Fira Code', monospace", "Georgia, serif", "Tahoma, sans-serif"] },
+                    { prop: "font-size", desc: "تحديد حجم الخط بوحدات مختلفة (px, rem, em, %).", example: "font-size: 18px;", stage: "card", target: "text", presets: ["12px", "16px", "20px", "24px", "1.4rem"], slider: { min: 10, max: 36, step: 1, unit: "px", units: ["px", "rem", "em"] } },
+                    { prop: "font-weight", desc: "تحديد سُمك الخط (عادي، عريض، أو قيم رقمية من 100 إلى 900).", example: "font-weight: 800;", stage: "card", target: "text", presets: ["400", "600", "700", "800", "normal", "bold"], slider: { min: 300, max: 900, step: 100, unit: "" } },
+                    { prop: "font-style", desc: "تحديد نمط الخط (عادي normal أو مائل italic).", example: "font-style: italic;", stage: "card", target: "text", presets: ["normal", "italic", "oblique"] },
+                    { prop: "line-height", desc: "تحديد ارتفاع السطر (التباعد العمودي بين أسطر النص).", example: "line-height: 2;", stage: "card", target: "text", presets: ["1.2", "1.6", "2.0", "2.5", "32px"], slider: { min: 1, max: 3, step: 0.1, unit: "" } },
+                    { prop: "letter-spacing", desc: "تحديد المسافة الأفقية بين الحروف.", example: "letter-spacing: 2px;", stage: "card", target: "title", presets: ["normal", "1px", "3px", "6px", "-1px"], slider: { min: -2, max: 12, step: 1, unit: "px" } },
+                    { prop: "word-spacing", desc: "تحديد المسافة بين الكلمات.", example: "word-spacing: 8px;", stage: "card", target: "text", presets: ["normal", "4px", "10px", "18px"], slider: { min: 0, max: 24, step: 1, unit: "px" } },
+                    { prop: "text-align", desc: "محاذاة النص أفقياً (يمين، يسار، وسط، ضبط).", example: "text-align: center;", stage: "card", target: "text", presets: ["right", "center", "left", "justify"] },
+                    { prop: "text-decoration", desc: "إضافة أو إزالة خطوط تزيين النص (تحته، فوقه، يتوسطه).", example: "text-decoration: underline wavy #e11d48;", stage: "card", target: "title", presets: ["none", "underline", "line-through", "overline", "underline wavy #e11d48"] },
+                    { prop: "text-transform", desc: "التحكم في حالة الأحرف الإنجليزية (كبيرة، صغيرة، بداية كل كلمة).", example: "text-transform: uppercase;", stage: "card", target: "btn", presets: ["none", "uppercase", "lowercase", "capitalize"] },
+                    { prop: "text-indent", desc: "تحديد مقدار المسافة البادئة لأول سطر في الفقرة.", example: "text-indent: 35px;", stage: "card", target: "text", presets: ["0px", "20px", "40px", "60px"], slider: { min: 0, max: 80, step: 5, unit: "px" } },
+                    { prop: "text-shadow", desc: "إضافة ظل للنص (الإزاحة الأفقية، العمودية، التمويه، اللون).", example: "text-shadow: 2px 2px 5px rgba(30,58,138,0.4);", stage: "card", target: "title", presets: ["none", "2px 2px 4px rgba(0,0,0,0.35)", "0 0 10px #38bdf8", "3px 3px 0px #bae6fd"] },
+                    { prop: "white-space", desc: "التحكم في كيفية التعامل مع المسافات البيضاء والتفاف الأسطر.", example: "white-space: nowrap;", stage: "card", target: "text", presets: ["normal", "nowrap", "pre-wrap", "pre-line"] },
+                    { prop: "word-break", desc: "تحديد كيفية كسر الكلمات الطويلة عند نهاية السطر.", example: "word-break: break-all;", stage: "card", target: "text", presets: ["normal", "break-all", "keep-all", "break-word"] },
+                    { prop: "overflow-wrap", desc: "السماح بكسر الكلمات الطويلة لمنع خروجها عن حدود الحاوية.", example: "overflow-wrap: anywhere;", stage: "card", target: "text", presets: ["normal", "break-word", "anywhere"] },
+                    { prop: "text-overflow", desc: "تحديد كيفية إظهار علامة اقتطاع النص الزائد (مثل النقاط الثلاث ...).", example: "text-overflow: ellipsis;", stage: "card", target: "text", presets: ["clip", "ellipsis"], extraCss: "white-space: nowrap; overflow: hidden;" },
+                    { prop: "direction", desc: "تحديد اتجاه النص والعناصر (من اليمين لليسار أو العكس).", example: "direction: ltr;", stage: "card", target: "card", presets: ["rtl", "ltr"] }
+                ]
+            },
+            {
+                id: "cat2",
+                title: "2. الخلفيات والألوان والشفافية",
+                en: "Backgrounds, Colors & Opacity",
+                desc: "تُستخدم لتنسيق خلفيات العناصر سواء بإضافة ألوان ثابتة أو شفافة، أو تعيين صور وتدرجات لونية (Gradients)، مع التحكم الدقيق في حجمها وموضعها وتكرارها وطريقة دمجها البصري ودرجة شفافية العنصر.",
+                tags: ["<body>", "<div>", "<section>", "<header>", "<footer>", "<main>", "<article>", "<button>", "<table>"],
+                items: [
+                    { prop: "background", desc: "خاصية مختصرة لتعيين جميع خصائص الخلفية في سطر واحد.", example: "background: linear-gradient(135deg, #eff6ff, #dbeafe);", stage: "card", target: "card", presets: ["#ffffff", "#fef3c7", "linear-gradient(135deg, #eff6ff, #bae6fd)", "radial-gradient(circle, #fef08a, #fde047)"] },
+                    { prop: "background-color", desc: "تحديد لون خلفية العنصر.", example: "background-color: #eff6ff;", stage: "card", target: "card", presets: ["#ffffff", "#eff6ff", "#fef2f2", "#ecfdf5", "#fefce8"], color: true },
+                    { prop: "background-image", desc: "تعيين صورة أو تدرج لوني كخلفية للعنصر.", example: "background-image: linear-gradient(to left, #1e3a8a, #0284c7);", stage: "card", target: "btn", presets: ["none", "linear-gradient(to left, #1e3a8a, #0284c7)", "linear-gradient(45deg, #e11d48, #f59e0b)", "radial-gradient(circle, #059669, #064e3b)"] },
+                    { prop: "background-repeat", desc: "تحديد تكرار صورة الخلفية أفقياً أو عمودياً أو منع التكرار.", example: "background-repeat: repeat-x;", stage: "card", target: "card", presets: ["repeat", "no-repeat", "repeat-x", "repeat-y", "space"], extraCss: "background-image: radial-gradient(#3b82f6 3px, transparent 3px); background-size: 24px 24px;" },
+                    { prop: "background-position", desc: "تحديد موضع بداية صورة الخلفية داخل العنصر.", example: "background-position: right bottom;", stage: "card", target: "card", presets: ["center", "top right", "bottom left", "20px 20px"], extraCss: "background-image: radial-gradient(#0284c7 18px, transparent 19px); background-repeat: no-repeat;" },
+                    { prop: "background-size", desc: "تحديد حجم صورة الخلفية (تغطية كاملة cover أو احتواء contain).", example: "background-size: 30px 30px;", stage: "card", target: "card", presets: ["auto", "cover", "contain", "20px 20px", "50px 50px"], extraCss: "background-image: radial-gradient(#93c5fd 4px, transparent 4px);" },
+                    { prop: "background-attachment", desc: "تحديد ما إذا كانت الخلفية ثابتة أم تتحرك مع تمرير الصفحة.", example: "background-attachment: fixed;", stage: "card", target: "card", presets: ["scroll", "fixed", "local"] },
+                    { prop: "background-clip", desc: "تحديد نطاق امتداد الخلفية (تحت الحدود، الحشوة، أو النص).", example: "background-clip: content-box;", stage: "card", target: "card", presets: ["border-box", "padding-box", "content-box"], extraCss: "border: 6px dashed #1e3a8a; padding: 18px; background-color: #dbeafe;" },
+                    { prop: "background-origin", desc: "تحديد نقطة الأصل التي يبدأ منها تموضع صورة الخلفية.", example: "background-origin: content-box;", stage: "card", target: "card", presets: ["padding-box", "border-box", "content-box"], extraCss: "border: 6px dashed #94a3b8; padding: 16px;" },
+                    { prop: "opacity", desc: "تحديد درجة شفافية العنصر بالكامل ومحتوياته (من 0 إلى 1).", example: "opacity: 0.65;", stage: "card", target: "card", presets: ["1", "0.8", "0.5", "0.25"], slider: { min: 0.1, max: 1, step: 0.05, unit: "" } },
+                    { prop: "mix-blend-mode", desc: "تحديد طريقة دمج ألوان العنصر مع العناصر التي تقع خلفه.", example: "mix-blend-mode: multiply;", stage: "media", target: "overlay", presets: ["normal", "multiply", "screen", "overlay", "difference", "luminosity"], extraCss: "background: #f43f5e;" }
+                ]
+            },
+            {
+                id: "cat3",
+                title: "3. نموذج الصندوق والأبعاد",
+                en: "Box Model & Sizing",
+                desc: "تمثل الركيزة الأساسية لبناء أي عنصر في CSS وفق نموذج الصندوق (Box Model)؛ حيث تحدد العرض والارتفاع، الهوامش الخارجية (Margin)، الحشوة الداخلية (Padding)، كيفية احتساب الأبعاد الإجمالية، والتعامل مع المحتوى الفائض.",
+                tags: ["<div>", "<section>", "<article>", "<aside>", "<header>", "<footer>", "<main>", "<form>", "<input>", "<img>"],
+                items: [
+                    { prop: "width", desc: "تحديد عرض العنصر.", example: "width: 75%;", stage: "card", target: "card", presets: ["100%", "80%", "60%", "280px", "auto"], slider: { min: 40, max: 100, step: 5, unit: "%", units: ["%", "px"] } },
+                    { prop: "min-width", desc: "تحديد الحد الأدنى لعرض العنصر.", example: "min-width: 220px;", stage: "card", target: "btn", presets: ["auto", "140px", "220px", "100%"], slider: { min: 80, max: 300, step: 10, unit: "px" } },
+                    { prop: "max-width", desc: "تحديد الحد الأقصى لعرض العنصر (مهم للتصميم المتجاوب).", example: "max-width: 340px;", stage: "card", target: "card", presets: ["none", "300px", "380px", "100%"], slider: { min: 220, max: 500, step: 10, unit: "px" } },
+                    { prop: "height", desc: "تحديد ارتفاع العنصر.", example: "height: 190px;", stage: "card", target: "card", presets: ["auto", "140px", "190px", "240px"], slider: { min: 100, max: 280, step: 10, unit: "px" } },
+                    { prop: "min-height", desc: "تحديد الحد الأدنى لارتفاع العنصر.", example: "min-height: 200px;", stage: "card", target: "card", presets: ["auto", "150px", "210px", "260px"], slider: { min: 100, max: 280, step: 10, unit: "px" } },
+                    { prop: "max-height", desc: "تحديد الحد الأقصى لارتفاع العنصر.", example: "max-height: 120px;", stage: "card", target: "card", presets: ["none", "110px", "150px", "220px"], slider: { min: 80, max: 250, step: 10, unit: "px" }, extraCss: "overflow: auto;" },
+                    { prop: "margin", desc: "تحديد الهوامش الخارجية المحيطة بالعنصر من الجهات الأربع.", example: "margin: 24px auto;", stage: "card", target: "card", presets: ["0px", "12px", "24px", "10px 35px"], slider: { min: 0, max: 40, step: 2, unit: "px" } },
+                    { prop: "padding", desc: "تحديد الحشوة الداخلية بين محتوى العنصر وحدوده.", example: "padding: 28px;", stage: "card", target: "card", presets: ["8px", "16px", "28px", "12px 32px"], slider: { min: 4, max: 45, step: 2, unit: "px" } },
+                    { prop: "box-sizing", desc: "تحديد طريقة حساب العرض والارتفاع (تضمين الحدود والحشوة أم لا).", example: "box-sizing: border-box;", stage: "card", target: "card", presets: ["border-box", "content-box"], extraCss: "width: 100%; border: 8px solid #1e3a8a; padding: 20px;" },
+                    { prop: "overflow", desc: "التحكم في المحتوى الزائد عن أبعاد العنصر (إخفاء، تمرير، تلقائي).", example: "overflow: auto;", stage: "card", target: "card", presets: ["visible", "hidden", "scroll", "auto"], extraCss: "height: 105px;" },
+                    { prop: "overflow-x / overflow-y", desc: "التحكم في تجاوز المحتوى أفقياً أو عمودياً بشكل منفصل.", example: "overflow-y: scroll;", stage: "card", target: "card", presets: ["visible", "hidden", "scroll", "auto"], extraCss: "height: 105px;" },
+                    { prop: "aspect-ratio", desc: "تحديد نسبة العرض إلى الارتفاع المفضلة للعنصر تلقائياً.", example: "aspect-ratio: 16 / 9;", stage: "media", target: "frame", presets: ["auto", "16 / 9", "4 / 3", "1 / 1", "21 / 9"], extraCss: "height: auto; max-height: 210px;" }
+                ]
+            },
+            {
+                id: "cat4",
+                title: "4. الحدود والخطوط الخارجية والظلال",
+                en: "Borders, Outlines & Shadows",
+                desc: "تختص برسم الإطارات والحدود حول العناصر والتحكم في سُمكها وشكلها ولونها وتدوير زواياها، بالإضافة إلى رسم الخطوط الخارجية (Outlines) عند التركيز وإضافة الظلال لإعطاء عمق بصري للعناصر.",
+                tags: ["<div>", "<button>", "<input>", "<select>", "<textarea>", "<img>", "<table>", "<td>", "<th>", "<hr>"],
+                items: [
+                    { prop: "border", desc: "خاصية مختصرة لتحديد سُمك ونمط ولون الإطار الخارجي.", example: "border: 3px solid #0284c7;", stage: "card", target: "card", presets: ["none", "2px solid #1e3a8a", "3px dashed #e11d48", "4px double #059669", "3px dotted #d97706"] },
+                    { prop: "border-width", desc: "تحديد سُمك إطار العنصر.", example: "border-width: 5px;", stage: "card", target: "card", presets: ["1px", "3px", "6px", "2px 8px"], slider: { min: 0, max: 14, step: 1, unit: "px" }, extraCss: "border-style: solid; border-color: #1e3a8a;" },
+                    { prop: "border-style", desc: "تحديد شكل الإطار (متصل solid، متقطع dashed، منقط dotted).", example: "border-style: dashed;", stage: "card", target: "card", presets: ["solid", "dashed", "dotted", "double", "groove", "ridge"], extraCss: "border-width: 4px; border-color: #0284c7;" },
+                    { prop: "border-color", desc: "تحديد لون إطار العنصر.", example: "border-color: #e11d48;", stage: "card", target: "card", presets: ["#1e3a8a", "#e11d48", "#059669", "#d97706", "#7c3aed"], color: true, extraCss: "border-width: 4px; border-style: solid;" },
+                    { prop: "border-radius", desc: "تدوير زوايا العنصر لجعلها دائرية أو منحنية.", example: "border-radius: 24px;", stage: "card", target: "card", presets: ["0px", "10px", "24px", "40px", "50%", "30px 0px 30px 0px"], slider: { min: 0, max: 60, step: 2, unit: "px", units: ["px", "%"] } },
+                    { prop: "border-collapse", desc: "دمج حدود خلايا الجدول المتجاورة في حد واحد أو فصلها.", example: "border-collapse: collapse;", stage: "listTable", target: "table", presets: ["separate", "collapse"], extraCss: "border-spacing: 6px;" },
+                    { prop: "border-spacing", desc: "تحديد المسافة الفاصلة بين حدود خلايا الجدول عند استخدام separate.", example: "border-spacing: 8px;", stage: "listTable", target: "table", presets: ["0px", "4px", "8px", "14px"], slider: { min: 0, max: 18, step: 1, unit: "px" }, extraCss: "border-collapse: separate;" },
+                    { prop: "outline", desc: "رسم خط خارجي حول العنصر خارج الحدود دون التأثير على أبعاده.", example: "outline: 3px solid #38bdf8;", stage: "card", target: "btn", presets: ["none", "2px solid #0284c7", "3px dashed #e11d48", "3px dotted #d97706"], extraCss: "outline-offset: 4px;" },
+                    { prop: "outline-offset", desc: "تحديد المسافة الفاصلة بين حدود العنصر والخط الخارجي (outline).", example: "outline-offset: 6px;", stage: "card", target: "btn", presets: ["0px", "3px", "6px", "10px", "-4px"], slider: { min: -6, max: 14, step: 1, unit: "px" }, extraCss: "outline: 2px solid #0284c7;" },
+                    { prop: "box-shadow", desc: "إضافة ظل واحد أو أكثر لصندوق العنصر (داخلي أو خارجي).", example: "box-shadow: 0 12px 28px rgba(30,58,138,0.22);", stage: "card", target: "card", presets: ["none", "0 4px 12px rgba(0,0,0,0.12)", "0 14px 30px rgba(30,58,138,0.28)", "6px 6px 0px #0284c7", "inset 0 4px 12px rgba(0,0,0,0.2)"] }
+                ]
+            },
+            {
+                id: "cat5",
+                title: "5. التخطيط والتموضع",
+                en: "Layout & Positioning",
+                desc: "تتحكم في طريقة تدفق العناصر داخل الصفحة ونوع عرضها (كتلي، سطري، مرن، شبكي، أو مخفي)، كما تحدد آلية تموضعها الدقيق وإزاحتها بالنسبة للصفحة أو لحاوياتها، وترتيب طبقاتها المتراكبة.",
+                tags: ["<div>", "<nav>", "<header>", "<footer>", "<aside>", "<section>", "<span>", "<dialog>", "<ul>", "<a>"],
+                items: [
+                    { prop: "display", desc: "تحديد نوع عرض العنصر (كتلي block، سطري inline، مرن flex، شبكة grid، مخفي none).", example: "display: inline-block;", stage: "card", target: "btn", presets: ["inline-block", "block", "inline", "flex", "none"] },
+                    { prop: "position", desc: "تحديد آلية تموضع العنصر في الصفحة (static, relative, absolute, fixed, sticky).", example: "position: absolute;", stage: "position", target: "badge", presets: ["static", "relative", "absolute", "sticky"], extraCss: "top: 25px; left: 25px;" },
+                    { prop: "top / right / bottom / left", desc: "تحديد إزاحة العنصر المموضع عن حواف الحاوية المرجعية.", example: "top: 35px; right: 75px;", stage: "position", target: "badge", presets: ["top: 15px; left: 15px;", "top: 40px; right: 65px;", "bottom: 15px; left: 20px;", "bottom: 15px; right: 20px;"], extraCss: "position: absolute;" },
+                    { prop: "inset", desc: "خاصية مختصرة تجمع (top, right, bottom, left) في سطر واحد.", example: "inset: 25px;", stage: "position", target: "badge", presets: ["auto", "15px", "30px", "20px 50px"], slider: { min: 0, max: 50, step: 5, unit: "px" }, extraCss: "position: absolute; display: flex; align-items: center; justify-content: center;" },
+                    { prop: "z-index", desc: "تحديد ترتيب تراكب العناصر فوق بعضها على المحور العمودي للشاشة.", example: "z-index: 10;", stage: "position", target: "badge", presets: ["1", "2", "5", "10", "-1"], slider: { min: -1, max: 10, step: 1, unit: "" }, extraCss: "position: absolute; top: 55px; right: 75px;" },
+                    { prop: "float", desc: "تعويم العنصر إلى اليمين أو اليسار ليلتف النص حوله.", example: "float: left;", stage: "position", target: "badge", presets: ["none", "right", "left"] },
+                    { prop: "clear", desc: "منع العنصر من الالتفاف حول العناصر العائمة قبله.", example: "clear: both;", stage: "position", target: "badge", presets: ["none", "right", "left", "both"] },
+                    { prop: "visibility", desc: "إظهار أو إخفاء العنصر مع الإبقاء على مساحته محجوزة في الصفحة.", example: "visibility: hidden;", stage: "card", target: "btn", presets: ["visible", "hidden"] },
+                    { prop: "isolation", desc: "إنشاء سياق تكديس (Stacking Context) مستقل للعنصر.", example: "isolation: isolate;", stage: "position", target: "arena", presets: ["auto", "isolate"] }
+                ]
+            },
+            {
+                id: "cat6",
+                title: "6. تخطيط الصندوق المرن (Flexbox)",
+                en: "Flexbox Layout",
+                desc: "نظام تخطيط أحادي البُعد (صف أو عمود) مصمم لتوزيع العناصر داخل الحاوية ومحاذاة محتواها وتنظيم المسافات بينها بمرونة عالية تتكيف تلقائياً مع مختلف أحجام الشاشات (تُطبق على العنصر الأب الحاوي وعناصره المباشرة).",
+                tags: ["<nav>", "<header>", "<footer>", "<ul>", "<div>", "<section>", "<form>", "<button>"],
+                items: [
+                    { prop: "flex-direction", desc: "تحديد اتجاه المحور الرئيسي للعناصر المرنة (صف row أو عمود column).", example: "flex-direction: row-reverse;", stage: "flex", target: "container", presets: ["row", "row-reverse", "column", "column-reverse"] },
+                    { prop: "flex-wrap", desc: "السماح بالتفاف العناصر المرنة إلى سطر جديد عند ضيق المساحة.", example: "flex-wrap: wrap;", stage: "flex", target: "container", presets: ["nowrap", "wrap", "wrap-reverse"], extraCss: "max-width: 240px;" },
+                    { prop: "flex-flow", desc: "خاصية مختصرة تجمع (flex-direction) و (flex-wrap).", example: "flex-flow: row wrap;", stage: "flex", target: "container", presets: ["row nowrap", "row wrap", "column nowrap", "column wrap"] },
+                    { prop: "justify-content", desc: "محاذاة العناصر وتوزيع الفراغات على طول المحور الرئيسي.", example: "justify-content: space-between;", stage: "flex", target: "container", presets: ["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"] },
+                    { prop: "align-items", desc: "محاذاة العناصر على طول المحور المتقاطع (العمودي افتراضياً).", example: "align-items: center;", stage: "flex", target: "container", presets: ["stretch", "flex-start", "center", "flex-end", "baseline"] },
+                    { prop: "align-content", desc: "توزيع الفراغات بين الأسطر المتعددة داخل الحاوية المرنة.", example: "align-content: space-between;", stage: "flex", target: "container", presets: ["stretch", "flex-start", "center", "flex-end", "space-between", "space-around"], extraCss: "flex-wrap: wrap; max-width: 230px; height: 185px;" },
+                    { prop: "gap", desc: "تحديد المسافة الفاصلة بين الصفوف والأعمدة داخل Flex أو Grid.", example: "gap: 20px;", stage: "flex", target: "container", presets: ["0px", "8px", "16px", "28px"], slider: { min: 0, max: 40, step: 2, unit: "px" } },
+                    { prop: "flex", desc: "خاصية مختصرة للعنصر الابن تجمع (flex-grow, flex-shrink, flex-basis).", example: "flex: 1 1 120px;", stage: "flex", target: "item2", presets: ["0 1 auto", "1 1 auto", "1 0 120px", "2 1 0%"] },
+                    { prop: "flex-grow", desc: "تحديد قابلية تمدد العنصر لملء المساحة الفارغة المتاحة.", example: "flex-grow: 1;", stage: "flex", target: "item2", presets: ["0", "1", "2", "3"], slider: { min: 0, max: 4, step: 1, unit: "" } },
+                    { prop: "flex-shrink", desc: "تحديد قابلية تقلص العنصر عند نقص المساحة.", example: "flex-shrink: 0;", stage: "flex", target: "item2", presets: ["1", "0", "2"] },
+                    { prop: "flex-basis", desc: "تحديد الحجم المبدئي للعنصر قبل توزيع المساحة المتبقية.", example: "flex-basis: 150px;", stage: "flex", target: "item2", presets: ["auto", "90px", "140px", "200px", "50%"], slider: { min: 60, max: 240, step: 10, unit: "px" } },
+                    { prop: "align-self", desc: "تجاوز محاذاة (align-items) لعنصر مرن واحد محدد.", example: "align-self: flex-end;", stage: "flex", target: "item2", presets: ["auto", "flex-start", "center", "flex-end", "stretch"] },
+                    { prop: "order", desc: "تغيير الترتيب البصري لعرض العناصر دون تعديل كود HTML.", example: "order: -1;", stage: "flex", target: "item2", presets: ["0", "-1", "1", "2"], slider: { min: -2, max: 3, step: 1, unit: "" } }
+                ]
+            },
+            {
+                id: "cat7",
+                title: "7. تخطيط الشبكة (CSS Grid)",
+                en: "CSS Grid Layout",
+                desc: "نظام تخطيط ثنائي البُعد (صفوف وأعمدة معاً) يُستخدم لبناء الهياكل المعقدة للصفحات وتقسيمها إلى مناطق شبكية متناسقة مع إمكانية دمج الخلايا والتحكم في توزيعها بدقة (تُطبق على الحاوية الشبكية وعناصرها الفرعية).",
+                tags: ["<body>", "<main>", "<section>", "<div>", "<article>", "<aside>", "<header>", "<footer>"],
+                items: [
+                    { prop: "grid-template-columns", desc: "تحديد عدد وعرض أعمدة الشبكة.", example: "grid-template-columns: repeat(2, 1fr);", stage: "grid", target: "container", presets: ["repeat(3, 1fr)", "repeat(2, 1fr)", "1fr 2fr 1fr", "repeat(auto-fit, minmax(110px, 1fr))"] },
+                    { prop: "grid-template-rows", desc: "تحديد عدد وارتفاع صفوف الشبكة.", example: "grid-template-rows: 65px 45px;", stage: "grid", target: "container", presets: ["auto", "65px 45px", "40px 80px", "repeat(2, 60px)"] },
+                    { prop: "grid-template-areas", desc: "تسمية مناطق الشبكة لتوزيع العناصر بصرياً بسهولة.", example: "grid-template-areas: 'a a b' 'c d e';", stage: "grid", target: "container", presets: ["none", "'a a b' 'c d e'", "'a b c' 'd e f'"] },
+                    { prop: "grid-area", desc: "تعيين العنصر لمنطقة مسماة أو تحديد إحداثياته في الشبكة.", example: "grid-area: 1 / 1 / 3 / 3;", stage: "grid", target: "cell1", presets: ["auto", "1 / 1 / 2 / 3", "1 / 1 / 3 / 3", "1 / 2 / 3 / 4"] },
+                    { prop: "grid-column", desc: "تحديد بداية ونهاية امتداد العنصر عبر الأعمدة.", example: "grid-column: 1 / -1;", stage: "grid", target: "cell1", presets: ["auto", "1 / 3", "1 / -1", "2 / 4"] },
+                    { prop: "grid-row", desc: "تحديد بداية ونهاية امتداد العنصر عبر الصفوف.", example: "grid-row: 1 / span 2;", stage: "grid", target: "cell1", presets: ["auto", "1 / span 2", "1 / 3"] },
+                    { prop: "grid-auto-flow", desc: "تحديد كيفية ملء العناصر التلقائية في خلايا الشبكة الفارغة.", example: "grid-auto-flow: column;", stage: "grid", target: "container", presets: ["row", "column", "dense", "row dense"] },
+                    { prop: "grid-auto-rows", desc: "تحديد الارتفاع الافتراضي للصفوف التي تُنشأ تلقائياً في الشبكة.", example: "grid-auto-rows: 65px;", stage: "grid", target: "container", presets: ["auto", "55px", "75px", "minmax(50px, auto)"], slider: { min: 40, max: 100, step: 5, unit: "px" } },
+                    { prop: "justify-items", desc: "محاذاة محتوى جميع خلايا الشبكة أفقياً.", example: "justify-items: center;", stage: "grid", target: "container", presets: ["stretch", "start", "center", "end"] },
+                    { prop: "place-items", desc: "خاصية مختصرة تجمع (align-items) و (justify-items).", example: "place-items: center;", stage: "grid", target: "container", presets: ["stretch", "center", "start end", "end start"] },
+                    { prop: "place-content", desc: "خاصية مختصرة لمحاذاة الشبكة بالكامل داخل حاويتها.", example: "place-content: center;", stage: "grid", target: "container", presets: ["stretch", "center", "space-between", "space-evenly"], extraCss: "grid-template-columns: repeat(3, 85px);" }
+                ]
+            },
+            {
+                id: "cat8",
+                title: "8. التحويلات والانتقالات والحركة",
+                en: "Transforms, Transitions & Animations",
+                desc: "تضفي الحيوية والتفاعل على واجهة المستخدم من خلال تطبيق تحويلات هندسية (تكبير، تدوير، نقل، إمالة)، وإنشاء انتقالات ناعمة عند تمرير المؤشر أو التركيز، أو تشغيل حركات متسلسلة عبر الإطارات المفتاحية (@keyframes).",
+                tags: ["<button>", "<a>", "<img>", "<svg>", "<div>", "<input>", "<nav>", "<span>", "<dialog>"],
+                items: [
+                    { prop: "transform", desc: "تطبيق تحويلات هندسية (نقل، تدوير، تكبير، إمالة) على العنصر.", example: "transform: scale(1.06) rotate(-2deg);", stage: "card", target: "card", presets: ["none", "scale(1.06)", "rotate(4deg)", "translateX(-15px)", "skewX(-6deg)", "scale(1.05) rotate(-2deg)"] },
+                    { prop: "transform-origin", desc: "تحديد نقطة الارتكاز التي يتم حولها تطبيق التحويل الهندسي.", example: "transform-origin: top right;", stage: "card", target: "card", presets: ["center", "top right", "bottom left", "0 0"], extraCss: "transform: rotate(5deg);" },
+                    { prop: "perspective", desc: "تحديد عمق المنظور ثلاثي الأبعاد (3D) للعناصر الأبناء.", example: "perspective: 600px;", stage: "card", target: "card", presets: ["none", "400px", "800px", "1200px"], slider: { min: 200, max: 1200, step: 50, unit: "px" } },
+                    { prop: "transition", desc: "خاصية مختصرة لعمل انتقال سلس عند تغير قيم خصائص العنصر.", example: "transition: all 0.4s ease-in-out;", stage: "card", target: "btn", presets: ["none", "all 0.3s ease", "all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)", "transform 0.4s ease-out"] },
+                    { prop: "transition-property", desc: "تحديد اسم الخاصية التي سيُطبق عليها تأثير الانتقال.", example: "transition-property: transform, background-color;", stage: "card", target: "btn", presets: ["all", "background-color", "transform", "opacity"] },
+                    { prop: "transition-duration", desc: "تحديد المدة الزمنية التي يستغرقها الانتقال.", example: "transition-duration: 0.5s;", stage: "card", target: "btn", presets: ["0s", "0.2s", "0.5s", "1s", "1.5s"], slider: { min: 0.1, max: 2, step: 0.1, unit: "s" } },
+                    { prop: "transition-timing-function", desc: "تحديد منحنى تسارع الحركة أثناء الانتقال (linear, ease, cubic-bezier).", example: "transition-timing-function: ease-in-out;", stage: "card", target: "btn", presets: ["ease", "linear", "ease-in", "ease-out", "ease-in-out"] },
+                    { prop: "animation", desc: "خاصية مختصرة لتشغيل حركة معقدة معرفة مسبقاً عبر @keyframes.", example: "animation: pulseBounce 1.5s ease-in-out infinite;", stage: "card", target: "btn", presets: ["none", "pulseBounce 1.4s ease-in-out infinite", "slideUp 0.8s ease forwards", "colorShift 2.5s infinite alternate", "spinSlow 3s linear infinite"] },
+                    { prop: "animation-name", desc: "تحديد اسم قاعدة الحركة (@keyframes) المراد تطبيقها.", example: "animation-name: pulseBounce;", stage: "card", target: "btn", presets: ["none", "pulseBounce", "slideUp", "fadeIn", "colorShift", "spinSlow"], extraCss: "animation-duration: 1.5s; animation-iteration-count: infinite;" },
+                    { prop: "animation-duration", desc: "تحديد مدة دورة الحركة الواحدة.", example: "animation-duration: 1.2s;", stage: "card", target: "btn", presets: ["0.5s", "1s", "2s", "3.5s"], slider: { min: 0.3, max: 4, step: 0.1, unit: "s" }, extraCss: "animation-name: pulseBounce; animation-iteration-count: infinite;" },
+                    { prop: "animation-iteration-count", desc: "تحديد عدد مرات تكرار الحركة (رقم محدد أو لا نهائي infinite).", example: "animation-iteration-count: infinite;", stage: "card", target: "btn", presets: ["1", "2", "3", "infinite"], extraCss: "animation-name: pulseBounce; animation-duration: 1s;" },
+                    { prop: "animation-direction", desc: "تحديد اتجاه تشغيل الحركة (عادي، عكسي، أو متناوب alternate).", example: "animation-direction: alternate;", stage: "card", target: "btn", presets: ["normal", "reverse", "alternate", "alternate-reverse"], extraCss: "animation-name: slideUp; animation-duration: 1.2s; animation-iteration-count: infinite;" },
+                    { prop: "animation-fill-mode", desc: "تحديد حالة العنصر قبل بدء الحركة وبعد انتهائها.", example: "animation-fill-mode: forwards;", stage: "card", target: "btn", presets: ["none", "forwards", "backwards", "both"], extraCss: "animation-name: slideUp; animation-duration: 1s;" }
+                ]
+            },
+            {
+                id: "cat9",
+                title: "9. القوائم والجداول",
+                en: "Lists & Tables",
+                desc: "توفر خصائص مخصصة لتنسيق القوائم النقطية والرقمية وتغيير رموزها أو إزالتها في قوائم التنقل، وكذلك التحكم في خوارزمية عرض أعمدة الجداول، موضع عناوينها، وإظهار أو إخفاء خلاياها الفارغة.",
+                tags: ["<ul>", "<ol>", "<li>", "<table>", "<thead>", "<tbody>", "<tfoot>", "<tr>", "<th>", "<td>", "<caption>"],
+                items: [
+                    { prop: "list-style", desc: "خاصية مختصرة لتنسيق علامات الترقيم أو التعداد في القوائم.", example: "list-style: square inside;", stage: "listTable", target: "list", presets: ["disc outside", "square inside", "circle outside", "none"] },
+                    { prop: "list-style-type", desc: "تحديد شكل رمز القائمة (دائرة، مربع، أرقام، حروف، أو بدون).", example: "list-style-type: arabic-indic;", stage: "listTable", target: "list", presets: ["disc", "circle", "square", "decimal", "arabic-indic", "upper-roman", "none"] },
+                    { prop: "list-style-position", desc: "تحديد موضع رمز القائمة (داخل أو خارج حدود عنصر القائمة).", example: "list-style-position: inside;", stage: "listTable", target: "list", presets: ["outside", "inside"], extraCss: "background: #eff6ff; border: 1px dashed #3b82f6;" },
+                    { prop: "list-style-image", desc: "استخدام صورة مخصصة كرمز لعناصر القائمة.", example: "list-style-image: radial-gradient(#e11d48 4px, transparent 5px);", stage: "listTable", target: "list", presets: ["none", "radial-gradient(#e11d48 4px, transparent 5px)", "linear-gradient(45deg, #1e3a8a, #38bdf8)"] },
+                    { prop: "table-layout", desc: "تحديد خوارزمية حساب عرض أعمدة الجدول (تلقائي auto أو ثابت fixed).", example: "table-layout: fixed;", stage: "listTable", target: "table", presets: ["auto", "fixed"] },
+                    { prop: "caption-side", desc: "تحديد موضع عنوان الجدول (أعلى الجدول top أو أسفله bottom).", example: "caption-side: bottom;", stage: "listTable", target: "table", presets: ["top", "bottom"] },
+                    { prop: "empty-cells", desc: "تحديد إظهار أو إخفاء الحدود والخلفية للخلايا الفارغة في الجدول.", example: "empty-cells: hide;", stage: "listTable", target: "table", presets: ["show", "hide"], extraCss: "border-collapse: separate; border-spacing: 4px;" }
+                ]
+            },
+            {
+                id: "cat10",
+                title: "10. التفاعل والصور والفلاتر والمتغيرات",
+                en: "UI, Media, Filters & Variables",
+                desc: "تشمل مجموعة من الأدوات الحديثة للتحكم في تفاعل المستخدم (شكل المؤشر، التمرير السلس، تحديد النص)، وضبط ملاءمة الصور والفيديوهات داخل إطاراتها، وتطبيق الفلاتر البصرية، وتعريف المتغيرات والدوال الحسابية في CSS.",
+                tags: [":root", "<html>", "<img>", "<video>", "<picture>", "<canvas>", "<button>", "<a>", "<input>", "<div>"],
+                items: [
+                    { prop: "cursor", desc: "تحديد شكل مؤشر الفأرة عند المرور فوق العنصر.", example: "cursor: grab;", stage: "card", target: "btn", presets: ["pointer", "default", "grab", "not-allowed", "crosshair", "zoom-in", "wait"] },
+                    { prop: "pointer-events", desc: "التحكم في استجابة العنصر لأحداث الفأرة والنقر.", example: "pointer-events: none;", stage: "card", target: "btn", presets: ["auto", "none"] },
+                    { prop: "user-select", desc: "السماح أو منع المستخدم من تحديد ونسخ النص داخل العنصر.", example: "user-select: none;", stage: "card", target: "text", presets: ["auto", "none", "all", "text"] },
+                    { prop: "scroll-behavior", desc: "تفعيل التمرير السلس عند الانتقال إلى الروابط الداخلية في الصفحة.", example: "scroll-behavior: smooth;", stage: "card", target: "card", presets: ["auto", "smooth"] },
+                    { prop: "accent-color", desc: "تخصيص اللون الأساسي لعناصر الإدخال مثل مربعات الاختيار وأزرار الراديو.", example: "accent-color: #e11d48;", stage: "card", target: "card", presets: ["#1e3a8a", "#e11d48", "#059669", "#d97706"], color: true },
+                    { prop: "caret-color", desc: "تحديد لون مؤشر الكتابة (الوميض) داخل حقول النصوص القابلة للتحرير.", example: "caret-color: #e11d48;", stage: "card", target: "text", presets: ["auto", "#e11d48", "#0284c7", "#059669"], color: true },
+                    { prop: "object-fit", desc: "تحديد كيفية ملاءمة الصورة أو الفيديو داخل أبعاد حاويته.", example: "object-fit: cover;", stage: "media", target: "artwork", presets: ["fill", "contain", "cover", "none", "scale-down"] },
+                    { prop: "object-position", desc: "تحديد نقطة تمركز الصورة أو الفيديو داخل إطارها.", example: "object-position: right top;", stage: "media", target: "artwork", presets: ["center", "top right", "bottom left", "20% 80%"] },
+                    { prop: "filter", desc: "تطبيق مؤثرات بصرية (تمويه، سطوع، تباين، تدرج رمادي) على العنصر.", example: "filter: grayscale(80%) contrast(120%);", stage: "media", target: "artwork", presets: ["none", "blur(4px)", "grayscale(100%)", "sepia(85%)", "brightness(130%)", "hue-rotate(140deg)", "contrast(150%)"] },
+                    { prop: "backdrop-filter", desc: "تطبيق مؤثرات بصرية (مثل تأثير الزجاج الضبابي) على ما يقع خلف العنصر.", example: "backdrop-filter: blur(10px) saturate(160%);", stage: "media", target: "overlay", presets: ["none", "blur(6px)", "blur(14px)", "blur(8px) grayscale(90%)", "blur(8px) invert(80%)", "blur(10px) saturate(200%)"] },
+                    { prop: "clip-path", desc: "قص العنصر وإظهار جزء محدد منه وفق شكل هندسي (دائرة، مضلع).", example: "clip-path: circle(42% at 50% 50%);", stage: "media", target: "artwork", presets: ["none", "circle(42% at 50% 50%)", "ellipse(45% 38% at 50% 50%)", "polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)", "polygon(0 0, 100% 0, 88% 100%, 12% 100%)"] },
+                    { prop: "--variable-name", desc: "تعريف متغير مخصص في CSS لإعادة استخدام القيم بسهولة.", example: "--accent-theme: #7c3aed;", stage: "card", target: "card", presets: ["#1e3a8a", "#e11d48", "#059669", "#7c3aed"], color: true, isVarDef: true },
+                    { prop: "var()", desc: "استدعاء قيمة متغير تم تعريفه مسبقاً في CSS.", example: "border-color: var(--accent-theme, #0284c7);", stage: "card", target: "card", presets: ["var(--accent-theme, #0284c7)", "var(--accent-theme, #e11d48)"], extraCss: "--accent-theme: #7c3aed; border: 3px solid var(--accent-theme);" },
+                    { prop: "calc()", desc: "إجراء عمليات حسابية لدمج وحدات قياس مختلفة ديناميكياً.", example: "width: calc(100% - 48px);", stage: "card", target: "card", presets: ["calc(100% - 20px)", "calc(100% - 60px)", "calc(50% + 40px)"] }
+                ]
+            }
+        ];
+
+        /* =========================================================================
+           3. حالة التطبيق وإدارة المحاكي التفاعلي
+           ========================================================================= */
+        const state = {
+            currentStage: "card",
+            currentTargetId: "card",
+            activePropObj: CSS_DATABASE[1].items[1], // background-color افتراضياً
+            activeValue: "#eff6ff",
+            sliderUnit: "px",
+            cumulativeMode: false,
+            accumulatedRules: {}, // { selector: { prop: val } }
+            activeCategoryFilter: "all",
+            activeTagFilter: ""
+        };
+
+        // تهيئة الصفحة عند التحميل
+        function initPlatform() {
+            renderCategoryPills();
+            renderCatalog();
+            selectStage("card", false);
+            simulateProperty("cat2", 1, false); // تحميل background-color كحالة بداية
+        }
+
+        // تبديل أوضاع العرض الثلاثة
+        function setViewMode(modeClass, btnEl) {
+            const ws = document.getElementById("workspace");
+            ws.className = "workspace " + modeClass;
+            document.querySelectorAll(".mode-btn").forEach(b => b.classList.remove("active"));
+            if (btnEl) btnEl.classList.add("active");
+        }
+
+        // تبديل الوضع الليلي / النهاري
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const isDark = document.body.classList.contains("dark-mode");
+            document.getElementById("themeToggleBtn").textContent = isDark ? "☀️ نهاري" : "🌙 المظهر";
+        }
+
+        // اختيار قالب المسرح (1 إلى 6)
+        function selectStage(stageKey, applyDefault = true) {
+            state.currentStage = stageKey;
+            const tpl = STAGE_TEMPLATES[stageKey];
+
+            // تحديث التبويبات
+            document.querySelectorAll(".stage-tab").forEach(tab => {
+                tab.classList.toggle("active", tab.dataset.stage === stageKey);
+            });
+
+            // عرض HTML الخاص بالقالب
+            const canvas = document.getElementById("liveStageCanvas");
+            canvas.innerHTML = `<div id="sim-stage">${tpl.html}</div>`;
+            document.getElementById("htmlSourceViewer").textContent = tpl.html;
+
+            // بناء أزرار العناصر المستهدفة داخل القالب
+            state.currentTargetId = tpl.targets[0].id;
+            renderTargetPills();
+
+            if (applyDefault) {
+                updateLivePreview();
+            }
+        }
+
+        function renderTargetPills() {
+            const tpl = STAGE_TEMPLATES[state.currentStage];
+            const group = document.getElementById("targetSelectorGroup");
+            group.innerHTML = tpl.targets.map(t => `
+                <button class="target-pill ${t.id === state.currentTargetId ? "active" : ""}"
+                        onclick="selectTarget('${t.id}')">${t.label}</button>
+            `).join("");
+        }
+
+        function selectTarget(targetId) {
+            state.currentTargetId = targetId;
+            renderTargetPills();
+            updateLivePreview();
+        }
+
+        // الحصول على المحدد (CSS Selector) الفعلي للعنصر المستهدف حالياً
+        function getActiveSelector() {
+            const tpl = STAGE_TEMPLATES[state.currentStage];
+            const found = tpl.targets.find(t => t.id === state.currentTargetId) || tpl.targets[0];
+            return found.selector;
+        }
+
+        function getCleanDisplaySelector() {
+            const tpl = STAGE_TEMPLATES[state.currentStage];
+            const found = tpl.targets.find(t => t.id === state.currentTargetId) || tpl.targets[0];
+            return found.label.split(" ")[0];
+        }
+
+        // التبديل بين التجربة المنفردة وتراكم السمات
+        function setBuilderMode(isCumulative) {
+            state.cumulativeMode = isCumulative;
+            document.getElementById("singleModeBtn").classList.toggle("active", !isCumulative);
+            document.getElementById("cumulativeModeBtn").classList.toggle("active", isCumulative);
+            document.getElementById("accumulatedBar").style.display = isCumulative ? "flex" : "none";
+
+            if (isCumulative && state.activePropObj) {
+                storeRuleInAccumulator(getActiveSelector(), getCleanPropName(state.activePropObj.prop), state.activeValue);
+            }
+            updateLivePreview();
+            showToast(isCumulative ? "تم تفعيل وضع تراكم السمات: يمكنك الآن دمج عدة خصائص معاً" : "تم تفعيل وضع التجربة المنفردة");
+        }
+
+        function getCleanPropName(prop) {
+            if (prop === "top / right / bottom / left") return "top";
+            if (prop === "overflow-x / overflow-y") return "overflow-y";
+            if (prop === "--variable-name") return "--custom-accent";
+            if (prop === "var()") return "border-color";
+            if (prop === "calc()") return "width";
+            return prop;
+        }
+
+        function storeRuleInAccumulator(selector, propName, value) {
+            if (!state.accumulatedRules[selector]) {
+                state.accumulatedRules[selector] = {};
+            }
+            // إذا كانت القيمة تحتوي على عدة خصائص مثل "top: 15px; left: 15px;"
+            if (value.includes(":") && value.includes(";")) {
+                value.split(";").forEach(pair => {
+                    const [k, v] = pair.split(":");
+                    if (k && v) state.accumulatedRules[selector][k.trim()] = v.trim();
+                });
+            } else {
+                state.accumulatedRules[selector][propName] = value.replace(/;$/, "");
+            }
+            renderAccumulatedChips();
+        }
+
+        function removeAccumulatedProp(selector, propName) {
+            if (state.accumulatedRules[selector]) {
+                delete state.accumulatedRules[selector][propName];
+                renderAccumulatedChips();
+                updateLivePreview();
+            }
+        }
+
+        function renderAccumulatedChips() {
+            const container = document.getElementById("accumulatedChips");
+            const sel = getActiveSelector();
+            const rules = state.accumulatedRules[sel] || {};
+            const entries = Object.entries(rules);
+
+            if (entries.length === 0) {
+                container.innerHTML = `<span style="font-size:11px; color:var(--text-muted);">لا توجد سمات متراكمة بعد لهذا العنصر</span>`;
+                return;
+            }
+
+            container.innerHTML = entries.map(([k, v]) => `
+                <span class="rule-chip">
+                    <span>${k}: ${v};</span>
+                    <button onclick="removeAccumulatedProp('${sel}', '${k}')" title="حذف السمة">×</button>
+                </span>
+            `).join("");
+        }
+
+        /* =========================================================================
+           4. تشغيل المحاكي لسمة محددة من الجدول
+           ========================================================================= */
+        function simulateProperty(catId, itemIdx, scrollIntoView = true) {
+            const cat = CSS_DATABASE.find(c => c.id === catId);
+            if (!cat) return;
+            const item = cat.items[itemIdx];
+            if (!item) return;
+
+            state.activePropObj = item;
+
+            // تمييز الصف النشط في الجدول
+            document.querySelectorAll("table.ref-table tbody tr").forEach(r => r.classList.remove("active-sim-row"));
+            const activeRow = document.getElementById(`row-${catId}-${itemIdx}`);
+            if (activeRow) activeRow.classList.add("active-sim-row");
+
+            // التحويل التلقائي للقالب والعنصر المستهدف المناسبين
+            if (state.currentStage !== item.stage) {
+                selectStage(item.stage, false);
+            }
+            if (item.target) {
+                state.currentTargetId = item.target;
+                renderTargetPills();
+            }
+
+            // استخراج القيمة الافتراضية من المثال
+            let initialVal = item.presets && item.presets.length > 0 ? item.presets[0] : "";
+            if (item.example.includes(":")) {
+                const parts = item.example.split(":");
+                if (parts.length === 2 && !item.example.includes(";") || item.example.split(";").filter(Boolean).length === 1) {
+                    initialVal = parts[1].replace(";", "").trim();
+                } else if (item.presets && item.presets[0]) {
+                    initialVal = item.presets[0];
+                }
+            }
+            state.activeValue = initialVal;
+
+            // تحديث الشارات والوصف
+            document.getElementById("activePropBadge").textContent = item.prop;
+            document.getElementById("controlPropDesc").textContent = item.desc;
+
+            // بناء أزرار القيم القياسية الجاهزة (Presets)
+            renderPresets(item);
+
+            // ضبط شريط التمرير الرقمي ومنتقي الألوان
+            setupDynamicWidgets(item, initialVal);
+
+            // حفظ في المتراكم إذا كان وضع التراكم مفعلاً
+            if (state.cumulativeMode) {
+                storeRuleInAccumulator(getActiveSelector(), getCleanPropName(item.prop), state.activeValue);
+            }
+
+            // تحديث المعاينة والمحرر
+            updateLivePreview();
+
+            // التمرير السلس إلى المحاكي على الشاشات الصغيرة
+            if (scrollIntoView && window.innerWidth <= 1120) {
+                document.querySelector(".simulator-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        }
+
+        function renderPresets(item) {
+            const container = document.getElementById("presetsContainer");
+            if (!item.presets || item.presets.length === 0) {
+                container.innerHTML = "";
+                return;
+            }
+            container.innerHTML = item.presets.map(val => `
+                <button class="preset-pill ${val === state.activeValue ? "active" : ""}"
+                        onclick="applyPresetValue(this, ${JSON.stringify(val).replace(/"/g, "&quot;")})">${val}</button>
+            `).join("");
+        }
+
+        function applyPresetValue(btnEl, val) {
+            state.activeValue = val;
+            document.querySelectorAll(".preset-pill").forEach(p => p.classList.remove("active"));
+            if (btnEl) btnEl.classList.add("active");
+
+            // مزامنة شريط التمرير إن وجد
+            if (state.activePropObj && state.activePropObj.slider) {
+                const numMatch = val.match(/-?\d+(\.\d+)?/);
+                if (numMatch) {
+                    const slider = document.getElementById("propRangeSlider");
+                    slider.value = numMatch[0];
+                    document.getElementById("sliderReadout").textContent = val;
+                }
+            }
+
+            if (state.cumulativeMode) {
+                storeRuleInAccumulator(getActiveSelector(), getCleanPropName(state.activePropObj.prop), val);
+            }
+            updateLivePreview();
+        }
+
+        function setupDynamicWidgets(item, initialVal) {
+            const sliderWidget = document.getElementById("sliderWidget");
+            const colorWidget = document.getElementById("colorWidget");
+
+            if (item.slider) {
+                sliderWidget.style.display = "flex";
+                const slider = document.getElementById("propRangeSlider");
+                slider.min = item.slider.min;
+                slider.max = item.slider.max;
+                slider.step = item.slider.step;
+                state.sliderUnit = item.slider.unit || "";
+
+                const numMatch = String(initialVal).match(/-?\d+(\.\d+)?/);
+                const startNum = numMatch ? numMatch[0] : item.slider.min;
+                slider.value = startNum;
+                document.getElementById("sliderReadout").textContent = `${startNum}${state.sliderUnit}`;
+
+                const unitPills = document.getElementById("unitPills");
+                if (item.slider.units && item.slider.units.length > 1) {
+                    unitPills.innerHTML = item.slider.units.map(u => `
+                        <button class="unit-btn ${u === state.sliderUnit ? "active" : ""}" onclick="changeSliderUnit('${u}')">${u}</button>
+                    `).join("");
+                } else {
+                    unitPills.innerHTML = "";
+                }
+            } else {
+                sliderWidget.style.display = "none";
+            }
+
+            if (item.color) {
+                colorWidget.style.display = "flex";
+                if (/^#[0-9a-fA-F]{6}$/.test(initialVal)) {
+                    document.getElementById("propColorPicker").value = initialVal;
+                }
+            } else {
+                colorWidget.style.display = "none";
+            }
+        }
+
+        function changeSliderUnit(unit) {
+            state.sliderUnit = unit;
+            document.querySelectorAll(".unit-btn").forEach(b => b.classList.toggle("active", b.textContent === unit));
+            const val = document.getElementById("propRangeSlider").value;
+            onSliderChange(val);
+        }
+
+        function onSliderChange(numVal) {
+            const formatted = `${numVal}${state.sliderUnit}`;
+            document.getElementById("sliderReadout").textContent = formatted;
+            state.activeValue = formatted;
+            document.querySelectorAll(".preset-pill").forEach(p => p.classList.remove("active"));
+
+            if (state.cumulativeMode) {
+                storeRuleInAccumulator(getActiveSelector(), getCleanPropName(state.activePropObj.prop), formatted);
+            }
+            updateLivePreview();
+        }
+
+        function onColorChange(hexColor) {
+            document.getElementById("propColorPicker").value = hexColor;
+            state.activeValue = hexColor;
+            document.querySelectorAll(".preset-pill").forEach(p => p.classList.remove("active"));
+
+            if (state.cumulativeMode) {
+                storeRuleInAccumulator(getActiveSelector(), getCleanPropName(state.activePropObj.prop), hexColor);
+            }
+            updateLivePreview();
+        }
+
+        /* =========================================================================
+           5. توليد كود CSS وتطبيقه حياً على المسرح
+           ========================================================================= */
+        function updateLivePreview() {
+            const selector = getActiveSelector();
+            const displaySel = getCleanDisplaySelector();
+            const item = state.activePropObj;
+            const cleanProp = getCleanPropName(item.prop);
+
+            let declarations = [];
+
+            if (state.cumulativeMode) {
+                renderAccumulatedChips();
+                const rules = state.accumulatedRules[selector] || {};
+                for (const [k, v] of Object.entries(rules)) {
+                    declarations.push(`  ${k}: ${v};`);
+                }
+            } else {
+                if (item.extraCss) {
+                    item.extraCss.split(";").filter(Boolean).forEach(rule => {
+                        declarations.push(`  ${rule.trim()};`);
+                    });
+                }
+
+                if (state.activeValue.includes(":") && state.activeValue.includes(";")) {
+                    state.activeValue.split(";").filter(Boolean).forEach(pair => {
+                        declarations.push(`  ${pair.trim()};`);
+                    });
+                } else {
+                    const valClean = state.activeValue.replace(/;$/, "");
+                    declarations.push(`  ${cleanProp}: ${valClean};`);
+                    if (item.isVarDef) {
+                        declarations.push(`  border: 3px solid var(${cleanProp});`);
+                        declarations.push(`  color: var(${cleanProp});`);
+                    }
+                }
+            }
+
+            // تحديث محرر النصوص CSS
+            const editorText = `${displaySel} {\n${declarations.join("\n")}\n}`;
+            document.getElementById("cssCodeEditor").value = editorText;
+
+            // تطبيق الكود الفعلي على المسرح
+            const scopedCss = `${selector} {\n${declarations.join("\n")}\n}`;
+            document.getElementById("dynamicStageStyle").textContent = scopedCss;
+        }
+
+        // عند قيام المستخدم بكتابة أو تعديل الكود يدوياً في المحرر
+        function onManualCssEdit() {
+            const rawCss = document.getElementById("cssCodeEditor").value;
+            const selector = getActiveSelector();
+            const bodyMatch = rawCss.match(/\{([\s\S]*)\}/);
+            const innerRules = bodyMatch ? bodyMatch[1] : rawCss;
+            document.getElementById("dynamicStageStyle").textContent = `${selector} {\n${innerRules}\n}`;
+        }
+
+        function toggleHtmlViewer() {
+            const viewer = document.getElementById("htmlSourceViewer");
+            const btn = document.getElementById("toggleHtmlBtn");
+            const isHidden = viewer.style.display === "none";
+            viewer.style.display = isHidden ? "block" : "none";
+            btn.textContent = isHidden ? "🙈 إخفاء HTML" : "👁️ إظهار HTML";
+        }
+
+        function copyCssCode() {
+            const textarea = document.getElementById("cssCodeEditor");
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+            try {
+                document.execCommand("copy");
+                showToast("✅ تم نسخ كود CSS إلى الحافظة بنجاح!");
+            } catch (err) {
+                showToast("⚠️ تعذر النسخ التلقائي، يمكنك النسخ يدوياً من المحرر.");
+            }
+            window.getSelection().removeAllRanges();
+        }
+
+        function resetSimulator() {
+            state.accumulatedRules = {};
+            renderAccumulatedChips();
+            simulateProperty("cat2", 1, false);
+            showToast("↺ تمت إعادة ضبط المحاكي إلى الحالة الافتراضية.");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toastMsg");
+            toast.textContent = message;
+            toast.classList.add("show");
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2600);
+        }
+
+        /* =========================================================================
+           6. بناء المرجع الشامل (10 مجموعات) والبحث والتصفية بالوسوم
+           ========================================================================= */
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+        }
+
+        function renderCategoryPills() {
+            const container = document.getElementById("categoryPills");
+            const totalCount = CSS_DATABASE.reduce((acc, c) => acc + c.items.length, 0);
+
+            let html = `<button class="cat-filter-btn active" data-cat="all" onclick="filterByCategory('all', this)">الكل (${totalCount})</button>`;
+            CSS_DATABASE.forEach(cat => {
+                const shortTitle = cat.title.replace(/^\d+\.\s*/, "");
+                html += `<button class="cat-filter-btn" data-cat="${cat.id}" onclick="filterByCategory('${cat.id}', this)">${shortTitle} (${cat.items.length})</button>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function filterByCategory(catId, btnEl) {
+            state.activeCategoryFilter = catId;
+            document.querySelectorAll(".cat-filter-btn").forEach(b => b.classList.remove("active"));
+            if (btnEl) btnEl.classList.add("active");
+            applyFilters();
+        }
+
+        function filterByTag(tagName) {
+            if (state.activeTagFilter === tagName) {
+                clearTagFilter();
+                return;
+            }
+            state.activeTagFilter = tagName;
+            const banner = document.getElementById("activeTagBanner");
+            banner.classList.add("visible");
+            document.getElementById("activeTagLabel").textContent = tagName;
+            applyFilters();
+        }
+
+        function clearTagFilter() {
+            state.activeTagFilter = "";
+            document.getElementById("activeTagBanner").classList.remove("visible");
+            applyFilters();
+        }
+
+        function renderCatalog() {
+            const container = document.getElementById("categoriesContainer");
+            container.innerHTML = CSS_DATABASE.map(cat => {
+                const tagsHtml = cat.tags.map(tag => `
+                    <button class="tag-badge-btn" data-tag="${escapeHtml(tag)}"
+                            onclick="filterByTag(${JSON.stringify(tag).replace(/"/g, "&quot;")})"
+                            title="انقر لتصفية المجموعات المرتبطة بالوسم ${escapeHtml(tag)}">${escapeHtml(tag)}</button>
+                `).join("");
+
+                const rowsHtml = cat.items.map((item, idx) => `
+                    <tr id="row-${cat.id}-${idx}" data-prop="${escapeHtml(item.prop.toLowerCase())}" data-desc="${escapeHtml(item.desc.toLowerCase())}">
+                        <td><code class="prop-code">${escapeHtml(item.prop)}</code></td>
+                        <td>${escapeHtml(item.desc)}</td>
+                        <td><code class="example-code">${escapeHtml(item.example)}</code></td>
+                        <td class="col-action">
+                            <button class="sim-row-btn" onclick="simulateProperty('${cat.id}', ${idx}, true)" title="تجربة ${escapeHtml(item.prop)} في المحاكي الحي">⚡ جرّب</button>
+                        </td>
+                    </tr>
+                `).join("");
+
+                return `
+                    <article class="category-section" id="sec-${cat.id}" data-cat-id="${cat.id}" data-tags='${JSON.stringify(cat.tags)}'>
+                        <div class="category-header">
+                            <h2>${escapeHtml(cat.title)}</h2>
+                            <span class="category-header-en">${escapeHtml(cat.en)} (${cat.items.length})</span>
+                        </div>
+                        <div class="category-meta">
+                            <p class="cat-desc"><strong>شرح المجموعة:</strong> ${escapeHtml(cat.desc)}</p>
+                            <div class="cat-tags-row">
+                                <strong>وسوم HTML المرتبطة:</strong>
+                                ${tagsHtml}
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="ref-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 21%;">السمة (Property)</th>
+                                        <th style="width: 41%;">الشرح والوظيفة</th>
+                                        <th style="width: 28%;">مثال تطبيقي</th>
+                                        <th class="col-action" style="width: 10%;">المحاكاة</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${rowsHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                `;
+            }).join("");
+        }
+
+        function applyFilters() {
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            const sections = document.querySelectorAll(".category-section");
+            let totalVisibleProps = 0;
+            let visibleCategories = 0;
+
+            // تمييز أزرار الوسوم المختارة
+            document.querySelectorAll(".tag-badge-btn").forEach(btn => {
+                btn.classList.toggle("selected-tag", btn.dataset.tag === state.activeTagFilter);
+            });
+
+            sections.forEach(sec => {
+                const catId = sec.dataset.catId;
+                const catTags = JSON.parse(sec.dataset.tags || "[]");
+                const headerText = sec.querySelector(".category-header").innerText.toLowerCase();
+                const metaText = sec.querySelector(".category-meta").innerText.toLowerCase();
+
+                const matchesCatFilter = state.activeCategoryFilter === "all" || state.activeCategoryFilter === catId;
+                const matchesTagFilter = !state.activeTagFilter || catTags.includes(state.activeTagFilter);
+
+                if (!matchesCatFilter || !matchesTagFilter) {
+                    sec.style.display = "none";
+                    return;
+                }
+
+                const matchesCategoryQuery = query && (headerText.includes(query) || metaText.includes(query));
+                const rows = sec.querySelectorAll("tbody tr");
+                let visibleRowsInSec = 0;
+
+                rows.forEach(row => {
+                    const rowText = row.innerText.toLowerCase();
+                    if (!query || matchesCategoryQuery || rowText.includes(query)) {
+                        row.style.display = "";
+                        visibleRowsInSec++;
+                        totalVisibleProps++;
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+
+                if (visibleRowsInSec > 0) {
+                    sec.style.display = "";
+                    visibleCategories++;
+                } else {
+                    sec.style.display = "none";
+                }
+            });
+
+            document.getElementById("resultsCountBadge").textContent =
+                `يعرض ${totalVisibleProps} سمة في ${visibleCategories} مجموعات`;
+        }
+
+        // تشغيل التهيئة عند جاهزية الصفحة
+        window.addEventListener("DOMContentLoaded", initPlatform);
+    </script>
+</body>
+</html>
